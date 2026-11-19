@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sara Guercio Project Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: a mission-dossier column — header, project index, then one record per project with a fixed metadata rail on wide screens. */
+:root {
+  --bg: #F5F6F8;
+  --surface: #FFFFFF;
+  --ink: #141922;
+  --muted: #5A6372;
+  --line: #DCE0E7;
+  --accent: #C8430C;
+  --accent-soft: #FBEDE6;
+  --font-display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E121A;
+    --surface: #151B25;
+    --ink: #E7EAF0;
+    --muted: #9AA3B2;
+    --line: #273042;
+    --accent: #FF7D45;
+    --accent-soft: #2A1C16;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E121A;
+  --surface: #151B25;
+  --ink: #E7EAF0;
+  --muted: #9AA3B2;
+  --line: #273042;
+  --accent: #FF7D45;
+  --accent-soft: #2A1C16;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+header.top { border-bottom: 1px solid var(--line); padding: 48px 0 32px; }
+.top .wrap { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 60px);
+  line-height: 1;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  margin: 0;
+  text-wrap: balance;
+}
+.lede { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+.contacts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 13.5px; margin-top: 6px; }
+.contacts a { color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 3px; }
+.contacts a:hover { text-decoration-color: var(--accent); }
+
+/* Index */
+nav.index { padding: 28px 0 8px; }
+nav.index h2 {
+  font-family: var(--font-mono); font-weight: 500; font-size: 12.5px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
+}
+nav.index ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+nav.index a {
+  display: flex; gap: 12px; align-items: baseline;
+  padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--ink); text-decoration: none; height: 100%;
+}
+nav.index a:hover { border-color: var(--accent); }
+nav.index .code { font-family: var(--font-mono); font-size: 12px; color: var(--accent); flex: none; }
+nav.index .name { font-weight: 500; }
+
+/* Project records */
+main { padding: 24px 0 64px; display: flex; flex-direction: column; gap: 20px; }
+article.project {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  scroll-margin-top: 16px;
+}
+article.project:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.rail {
+  border-right: 1px solid var(--line);
+  padding: 24px 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  font-size: 13.5px;
+}
+.rail dl { margin: 0; display: flex; flex-direction: column; gap: 14px; }
+.rail dt { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.rail dd { margin: 2px 0 0; line-height: 1.45; }
+.rail .dates { font-variant-numeric: tabular-nums; }
+.body { padding: 24px 28px 26px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.code-tag { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); letter-spacing: .04em; }
+h3 {
+  font-family: var(--font-display); font-weight: 600; font-size: 30px; line-height: 1.08;
+  margin: 2px 0 0; text-wrap: balance; letter-spacing: .005em;
+}
+.copy-link {
+  flex: none; font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 5px 9px; cursor: pointer;
+}
+.copy-link:hover { color: var(--accent); border-color: var(--accent); }
+.highlight {
+  align-self: flex-start;
+  font-size: 13.5px; font-weight: 500;
+  background: var(--accent-soft); color: var(--ink);
+  border-left: 3px solid var(--accent); padding: 6px 12px; border-radius: 0 4px 4px 0;
+}
+.abstract { margin: 0; max-width: 68ch; }
+.abstract-label { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 4px 0 -6px; }
+ul.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+ul.tags li { font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--muted); }
+.docs { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; border-top: 1px dashed var(--line); margin-top: 4px; padding-top: 14px; }
+.doc {
+  font-size: 14px; font-weight: 500; text-decoration: none;
+  border: 1px solid var(--accent); color: var(--accent); border-radius: 5px; padding: 6px 12px;
+}
+.doc:hover { background: var(--accent); color: var(--surface); }
+.doc.pending { border-style: dashed; border-color: var(--line); color: var(--muted); cursor: default; }
+.doc.pending:hover { background: transparent; color: var(--muted); }
+
+.figures { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.fig { background: var(--surface); padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; }
+.fig b { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.fig span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+
+footer { border-top: 1px solid var(--line); padding: 20px 0 40px; color: var(--muted); font-size: 13px; font-family: var(--font-mono); }
+
+@media (max-width: 720px) {
+  article.project { grid-template-columns: 1fr; }
+  .rail { border-right: none; border-bottom: 1px solid var(--line); padding: 18px 20px; }
+  .rail dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 16px; }
+  .body { padding: 20px; }
+  h3 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Project portfolio</div>
+    <h1>Sara Guercio</h1>
+    <p class="lede">MSc Space Engineering student at Politecnico di Milano. Abstracts and documentation of my main academic and entrepreneurial projects, from mission analysis and atmospheric entry to attitude control, micro-propulsion and space ventures.</p>
+    <div class="contacts">
+      <a href="mailto:sara.guercio@mail.polimi.it">sara.guercio@mail.polimi.it</a>
+      <a href="https://linkedin.com/in/sara-guercio">linkedin.com/in/sara-guercio</a>
+      <a href="https://drive.google.com/drive/folders/1hsAie4tBWCrpD5bV5gog-zLaC0zKDhnF" target="_blank" rel="noopener">All project documents</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="index" aria-label="Projects">
+    <h2>Projects</h2>
+    <ol>
+      <li><a href="#hecate"><span class="code">HECATE</span><span class="name">Helium-3 Capture and Transport Expedition</span></a></li>
+      <li><a href="#suborbital"><span class="code">SUBORB</span><span class="name">Manned Suborbital Transport System</span></a></li>
+      <li><a href="#rocketpad"><span class="code">VENTURE</span><span class="name">RocketPad · Recovery-as-a-Service</span></a></li>
+      <li><a href="#orbital-mechanics"><span class="code">ORBMEC</span><span class="name">Interplanetary &amp; Planetary Explorer</span></a></li>
+      <li><a href="#adcs"><span class="code">ADCS</span><span class="name">3U CubeSat Attitude Dynamics &amp; Control</span></a></li>
+      <li><a href="#micro-thruster"><span class="code">PROP</span><span class="name">MEMS Micro-Thruster Design</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <article class="project" id="hecate">
+      <aside class="rail">
+        <dl>
+          <div><dt>Course</dt><dd>Applied Space Mission Analysis and Design · Politecnico di Milano</dd></div>
+          <div><dt>Period</dt><dd class="dates">Sep 2025 – Mar 2026</dd></div>
+          <div><dt>Team</dt><dd>10 students · Prof. M. R. Lavagna</dd></div>
+          <div><dt>My role</dt><dd>Entry, Descent and Landing lead: Sample Return Vehicle and He-3 payload</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB, Python, Simulink</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">HECATE</div><h3>HECATE: Helium-3 Capture and Transport Expedition</h3></div>
+          <button class="copy-link" type="button" id="copy-hecate" data-target="hecate">Copy link</button>
+        </div>
+        <div class="highlight">Mission study presented at the 77th International Astronautical Congress (IAC 2026), Antalya, Türkiye</div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">HECATE is a feasibility study for a cislunar logistics chain that returns at least 1 kg of lunar Helium-3 to Earth per trip, over four Earth–Moon cycles. The selected “Space Taxi” architecture pairs a reusable, electrically propelled Tug in a 9:2 Near Rectilinear Halo Orbit with expendable Lander, Ascender and Transporter modules. As EDL lead I designed the Sample Return Vehicle that brings the He-3 tank through atmospheric entry at 11 km/s. A 2,000-run Monte Carlo campaign on entry-state, atmospheric-density and aerodynamic dispersions set the design loads. A trade-off on the half-cone angle led to a 45° blunt body with a low ballistic coefficient, and the 95th-percentile heat load sized a PICA heat shield and a cork backshell. A drogue, reefed-main and ringsail main parachute sequence brings the capsule down to a soft landing. I also sized the payload: a composite overwrapped pressure vessel storing 1.2 kg of He-3 at 34.5 MPa, using the Van der Waals equation of state and thin-walled pressure vessel theory.</p>
+        <div class="figures" aria-label="Key figures">
+          <div class="fig"><b>363.9 W/cm²</b><span>peak heat flux, nominal entry</span></div>
+          <div class="fig"><b>29.4 g</b><span>peak deceleration (95th percentile)</span></div>
+          <div class="fig"><b>71.5 kg/m²</b><span>ballistic coefficient, C<sub>D</sub> = 1.017</span></div>
+          <div class="fig"><b>7.8 m/s</b><span>touchdown velocity under ringsail main</span></div>
+          <div class="fig"><b>345 kg</b><span>SRV mass incl. payload and 20% margin</span></div>
+        </div>
+        <ul class="tags">
+          <li>Atmospheric entry</li><li>EDL</li><li>Monte Carlo</li><li>Ablative TPS</li><li>Parachute sizing</li><li>COPV sizing</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1jAwzphEiVZzBcyriKl9XzeDkkkoFjTTd/view" target="_blank" rel="noopener">Executive summary (PDF)</a>
+          <a class="doc" href="https://drive.google.com/file/d/1nej5xlvy0jcLaJUKz4NjJSEMj_uTOGeW/view" target="_blank" rel="noopener">Final report (PDF)</a>
+          <a class="doc" href="https://drive.google.com/file/d/1IJ_2L91UDEaB7UuYfxrLeTCNzlubICf_/view" target="_blank" rel="noopener">IAC 2026 abstract (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="suborbital">
+      <aside class="rail">
+        <dl>
+          <div><dt>Course</dt><dd>Launch Systems · Politecnico di Milano</dd></div>
+          <div><dt>Period</dt><dd class="dates">Oct 2025 – Jan 2026</dd></div>
+          <div><dt>Team</dt><dd>8 students · Prof. F. Maggi, S. Carlotti</dd></div>
+          <div><dt>My role</dt><dd>Trajectory design and payload definition</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">SUBORB</div><h3>Manned Suborbital Transport System Design</h3></div>
+          <button class="copy-link" type="button" id="copy-suborbital" data-target="suborbital">Copy link</button>
+        </div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">Conceptual design of a human-rated suborbital system that carries a six-person crew and their equipment on an antipodal ballistic trajectory, from Rocket Lab Launch Complex 1 in New Zealand to the Iberian Peninsula. The vehicle is a two-stage expendable launcher derived from Atlas V, with a semi-cryogenic first stage and a cryogenic upper stage, topped by a conical capsule with a tractor-tower launch escape system. I was responsible for the trajectory and the payload definition. The powered ascent was optimized with a direct-shooting method on the discretized steering angle, then coupled through event-based integration with the ballistic coast and a re-entry phase whose entry state was optimized to minimize crew deceleration. The capsule lands about 0.6 km from the target, well inside the 20 km requirement, and both spent stages fall into the ocean. The analysis also showed that a purely ballistic re-entry peaks at 7.45 g, above the 5 g crew limit, so the next design iteration needs a lifting re-entry.</p>
+        <div class="figures" aria-label="Key figures">
+          <div class="fig"><b>≈ 0.6 km</b><span>landing error vs 20 km requirement</span></div>
+          <div class="fig"><b>352 km</b><span>altitude at upper-stage cutoff, 7.6 km/s</span></div>
+          <div class="fig"><b>22.5 kPa</b><span>max dynamic pressure during ascent</span></div>
+          <div class="fig"><b>7.45 g</b><span>ballistic re-entry peak, drives redesign</span></div>
+        </div>
+        <ul class="tags">
+          <li>Trajectory optimization</li><li>Direct shooting</li><li>Human rating</li><li>Re-entry</li><li>Payload definition</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1TfqRe59dDaJr7yxz9SllLcu7EseEzW1w/view" target="_blank" rel="noopener">Final report (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="rocketpad">
+      <aside class="rail">
+        <dl>
+          <div><dt>Context</dt><dd>High-Tech Startup course, Politecnico di Milano · TEF Ignition 3, Tech Europe Foundation &amp; PoliHub</dd></div>
+          <div><dt>Period</dt><dd class="dates">Sep 2025 – May 2026</dd></div>
+          <div><dt>Team</dt><dd>7 space and mechanical engineers · Prof. E. Piva</dd></div>
+          <div><dt>Methods</dt><dd>PESTEL, Porter's Five Forces, SWOT, AHP, Value Proposition Canvas</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">VENTURE</div><h3>RocketPad: Recovery-as-a-Service Ground Platform</h3></div>
+          <button class="copy-link" type="button" id="copy-rocketpad" data-target="rocketpad">Copy link</button>
+        </div>
+        <div class="highlight">Selected among the top 100 teams for TEF Ignition 3</div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">Reusable rockets pay a payload penalty to land: reaching near-zero touchdown velocity takes extra propellant and heavy landing gear, often around 10% of payload capacity. RocketPad moves that burden to the ground with an adaptive landing platform that absorbs high-impact kinetic energy, so vehicles can land faster with less propellant and turn the savings into payload mass. The business plan, developed in the High-Tech Startup course, combines PESTEL, Porter's Five Forces, competitor and SWOT analyses. Strategic alternatives were ranked through a multi-criteria AHP analysis, which led to a Recovery-as-a-Service model instead of hardware sales. The value proposition was tested with industry experts, including the MaiaSpace engineering team, who expressed interest in the solution. The team was then selected among the top 100 for TEF Ignition 3, a 7-week venture-building program by Tech Europe Foundation and PoliHub, where we pitched the venture and backed it with technical feasibility studies.</p>
+        <ul class="tags">
+          <li>Reusable launchers</li><li>Business model</li><li>Market analysis</li><li>AHP</li><li>Pitching</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1iUxDnbH-8gV-iiGTSZDy-p41gMnbc8va/view" target="_blank" rel="noopener">Business plan (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="orbital-mechanics">
+      <aside class="rail">
+        <dl>
+          <div><dt>Course</dt><dd>Orbital Mechanics · Politecnico di Milano</dd></div>
+          <div><dt>Period</dt><dd class="dates">Oct 2025 – Jan 2026</dd></div>
+          <div><dt>Team</dt><dd>4 students · Prof. C. Colombo</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">ORBMEC</div><h3>Interplanetary Explorer &amp; Planetary Explorer Mission</h3></div>
+          <button class="copy-link" type="button" id="copy-orbital-mechanics" data-target="orbital-mechanics">Copy link</button>
+        </div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">The first part designs a transfer from Earth to asteroid N.136789 with a powered gravity assist at Mars, modeled as two Lambert arcs patched at the flyby. A coarse-to-fine grid search over departure, flyby and arrival dates, across a 2030–2060 window sampled on the bodies' synodic periods, minimizes the total Δv. The optimum departs in September 2033 and arrives in July 2036, and the flyby is almost entirely unpowered. The second part studies a highly elliptical Earth orbit (e ≈ 0.41, i = 75°) under J₂ and lunar third-body perturbations. It compares Cartesian (Cowell) and Gauss propagation for accuracy and computational cost, designs a repeating ground track, and validates the models against real TLE data for a LEO debris object and a GEO object.</p>
+        <div class="figures" aria-label="Key figures">
+          <div class="fig"><b>7.84 km/s</b><span>total mission Δv</span></div>
+          <div class="fig"><b>1,045 days</b><span>Earth to asteroid time of flight</span></div>
+          <div class="fig"><b>3 m/s</b><span>powered flyby cost at Mars</span></div>
+          <div class="fig"><b>206 km</b><span>flyby pericenter altitude</span></div>
+        </div>
+        <ul class="tags">
+          <li>Lambert problem</li><li>Powered flyby</li><li>Grid search</li><li>J₂ &amp; third-body perturbations</li><li>Ground tracks</li><li>TLE validation</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1LSd0_iI9hG9N2_mSnVAZYNxdlVrQgE_C/view" target="_blank" rel="noopener">Final report (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="adcs">
+      <aside class="rail">
+        <dl>
+          <div><dt>Course</dt><dd>Spacecraft Attitude Dynamics · Politecnico di Milano</dd></div>
+          <div><dt>Period</dt><dd class="dates">Oct 2025 – Dec 2025</dd></div>
+          <div><dt>Team</dt><dd>4 students</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB, Simulink</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">ADCS</div><h3>3U CubeSat Attitude Dynamics &amp; Control</h3></div>
+          <button class="copy-link" type="button" id="copy-adcs" data-target="adcs">Copy link</button>
+        </div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">End-to-end attitude simulation of a 3U CubeSat in low Earth orbit with a 2° nadir-pointing requirement. The model includes gravity-gradient, solar radiation pressure, magnetic and aerodynamic disturbance torques, and a Sun sensor, magnetometer and gyroscope with realistic noise. Attitude is determined by solving Wahba's problem with Davenport's q-method, falling back to the magnetometer alone during eclipse. Actuation combines magnetorquers with four reaction wheels in a pyramid configuration. Three control modes cover the mission: B-dot detumbling, verified through a Monte Carlo campaign with random initial attitudes and rates up to 10 deg/s; a geometric PD slew that recovers a 180° misalignment and acquires the LVLH frame with a residual error well below 1°; and an LQR controller with a state observer that holds nadir pointing within the requirement while staying inside actuator limits.</p>
+        <div class="figures" aria-label="Key figures">
+          <div class="fig"><b>2°</b><span>nadir-pointing requirement</span></div>
+          <div class="fig"><b>180° → &lt;1°</b><span>slew to LVLH, residual error</span></div>
+          <div class="fig"><b>10 deg/s</b><span>max initial tumble in detumbling Monte Carlo</span></div>
+        </div>
+        <ul class="tags">
+          <li>Wahba's problem</li><li>q-method</li><li>B-dot detumbling</li><li>Geometric PD</li><li>LQR</li><li>Reaction wheels</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1hFW9pE5DJVlIhZuCDDUDxQ5klwPDBKGo/view" target="_blank" rel="noopener">Final report (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project" id="micro-thruster">
+      <aside class="rail">
+        <dl>
+          <div><dt>Course</dt><dd>Space Propulsion · Politecnico di Milano</dd></div>
+          <div><dt>Period</dt><dd class="dates">Apr 2025</dd></div>
+          <div><dt>Team</dt><dd>8 students</dd></div>
+          <div><dt>My role</dt><dd>Vaporizing liquid micro-thruster: nominal design and results</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB, RPA</dd></div>
+        </dl>
+      </aside>
+      <div class="body">
+        <div class="head">
+          <div><div class="code-tag">PROP</div><h3>MEMS Micro-Thruster Design for a 3U CubeSat</h3></div>
+          <button class="copy-link" type="button" id="copy-micro-thruster" data-target="micro-thruster">Copy link</button>
+        </div>
+        <p class="abstract-label">Abstract</p>
+        <p class="abstract">Three MEMS micro-propulsion systems (a solid-propellant array, a cold gas thruster and a vaporizing liquid micro-thruster) were designed for a 3U CubeSat against the same requirements of 5 mN thrust and 0.5 m/s Δv, then compared on performance, size and robustness. I worked on the water-fed vaporizing liquid micro-thruster (VLM), using a quasi-one-dimensional model with empirical corrections for micro-scale effects. With the chamber pressure fixed, chamber temperature and expansion ratio were traded to minimize electrical power. Viscous nozzle losses were captured through a Reynolds-dependent discharge coefficient, and the nozzle, heating chamber, injector, feed line and tank were sized. The nominal VLM delivers 5 mN at about 122 s of specific impulse with 1.7 g of water, but needs about 12.7 W, a demanding share of a 3U power budget. Monte Carlo analysis on microfabrication tolerances identified the injector diameter as the most critical dimension.</p>
+        <div class="figures" aria-label="Key figures">
+          <div class="fig"><b>5 mN</b><span>nominal thrust, all three designs</span></div>
+          <div class="fig"><b>122 s</b><span>VLM specific impulse</span></div>
+          <div class="fig"><b>12.7 W</b><span>VLM electrical power</span></div>
+          <div class="fig"><b>7.5 mm</b><span>VLM engine length</span></div>
+        </div>
+        <ul class="tags">
+          <li>MEMS propulsion</li><li>Green propellant</li><li>Power trade-off</li><li>Micro-nozzle losses</li><li>Monte Carlo</li>
+        </ul>
+        <div class="docs">
+          <a class="doc" href="https://drive.google.com/file/d/1eTWtYq2Q-PMvESvbGzFB_vswWd2goWLh/view" target="_blank" rel="noopener">Final report (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">Sara Guercio · Space Engineering, Politecnico di Milano · Last updated November 2026</div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-link').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var base = location.href.split('#')[0];
+    var url = base + '#' + btn.dataset.target;
+    var done = function (msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copy link'; }, 1600); };
+    try {
+      navigator.clipboard.writeText(url).then(function () { done('Copied'); }, function () { done('#' + btn.dataset.target); });
+    } catch (e) { done('#' + btn.dataset.target); }
+  });
+});
+</script>
+</body>
+</html>
